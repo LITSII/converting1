@@ -111,14 +111,13 @@ class PrinceMakerServiceTest {
     @Test
     void createPrinceTest_failed_with_invalid_experience() {
         //given
-        CreatePrince.Request request = CreatePrince.Request.builder()
-                .princeLevel(KING)
-                .skillType(INTELLECTUAL)
-                .experienceYears(MIN_KING_EXPERIENCE_YEARS - 3)
-                .princeId("princeId")
-                .name("name")
-                .age(28)
-                .build();
+        CreatePrince.Request request = new CreatePrince.Request(
+                KING,
+                INTELLECTUAL,
+                MIN_KING_EXPERIENCE_YEARS - 3,
+                "princeId",
+                "name",
+                28);
         given(princeRepository.findByPrinceId(anyString()))
                 .willReturn(Optional.empty());
 

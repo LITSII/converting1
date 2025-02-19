@@ -37,6 +37,7 @@ class CreatePrince {
         val age: Int? = null
     ) {
         companion object {
+            @JvmStatic
             fun fromEntity(prince: Prince): Response {
                 return Response(
                     princeLevel = prince.princeLevel,

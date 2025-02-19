@@ -45,7 +45,7 @@ public class PrinceMakerService {
                 .age(request.getAge())
                 .build();
         princeRepository.save(prince);
-        return CreatePrince.Response.Companion.fromEntity(prince);
+        return CreatePrince.Response.fromEntity(prince);
     }
 
     private void validateCreatePrinceRequest(CreatePrince.Request request) {

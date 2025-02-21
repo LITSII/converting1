@@ -3,7 +3,6 @@ package com.makers.princemaker.dto
 import com.makers.princemaker.entity.Prince
 import com.makers.princemaker.type.PrinceLevel
 import com.makers.princemaker.type.SkillType
-import lombok.*
 import javax.validation.constraints.Min
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
@@ -13,17 +12,17 @@ import javax.validation.constraints.Size
  */
 class CreatePrince {
     data class Request(
-        @NotNull
+        @field:NotNull
         val princeLevel: PrinceLevel? = null,
-        @NotNull
+        @field:NotNull
         val skillType: SkillType? = null,
-        @NotNull @Min(0)
+        @field:NotNull @field:Min(0)
         val experienceYears: Int? = null,
-        @NotNull @Size(min = 3, max = 50, message = "invalid princeId")
+        @field:NotNull @field:Size(min = 3, max = 50, message = "invalid princeId")
         val princeId: String? = null,
-        @NotNull @Size(min = 2, max = 50, message = "invalid name")
+        @field:NotNull @field:Size(min = 2, max = 50, message = "invalid name")
         val name: String? = null,
-        @NotNull @Min(18)
+        @field:NotNull @field:Min(18)
         val age: Int? = null,
     )
 

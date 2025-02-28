@@ -35,7 +35,10 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	runtimeOnly("com.h2database:h2")
+
+	val mockkVersion = "1.13.8"
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:${mockkVersion}")
 }
 kapt {
 	keepJavacAnnotationProcessors = true

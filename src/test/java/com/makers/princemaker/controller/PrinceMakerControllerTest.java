@@ -2,7 +2,7 @@ package com.makers.princemaker.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.makers.princemaker.code.PrinceMakerErrorCode;
-import com.makers.princemaker.dto.CreatePrince;
+
 import com.makers.princemaker.dto.PrinceDto;
 import com.makers.princemaker.exception.PrinceMakerException;
 import com.makers.princemaker.service.PrinceMakerService;
@@ -31,7 +31,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Snow
  */
-@WebMvcTest(PrinceMakerController.class)
+// 다수의 컨트롤러
+@WebMvcTest(controllers = {PrinceMakerController.class, CreatePrinceController.class})
 @MockBean(JpaMetamodelMappingContext.class)
 class PrinceMakerControllerTest {
     @Autowired

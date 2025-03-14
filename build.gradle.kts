@@ -37,8 +37,10 @@ dependencies {
 	runtimeOnly("com.h2database:h2")
 
 	val mockkVersion = "1.13.8"
+	val kotestVersion = "latest";
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.mockk:mockk:${mockkVersion}")
+	testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
 kapt {
 	keepJavacAnnotationProcessors = true

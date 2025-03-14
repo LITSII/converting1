@@ -3,13 +3,17 @@ package com.makers.princemaker.service
 import com.makers.princemaker.code.PrinceMakerErrorCode
 import com.makers.princemaker.code.StatusCode
 import com.makers.princemaker.constant.PrinceMakerConstant
-import com.makers.princemaker.dto.CreatePrince
+import com.makers.princemaker.constant.PrinceMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS
+import com.makers.princemaker.controller.CreatePrince
+
 import com.makers.princemaker.entity.Prince
 import com.makers.princemaker.entity.PrinceMock
+import com.makers.princemaker.entity.dummyPrince
 import com.makers.princemaker.exception.PrinceMakerException
 import com.makers.princemaker.repository.PrinceRepository
 import com.makers.princemaker.repository.WoundedPrinceRepository
 import com.makers.princemaker.type.PrinceLevel
+import com.makers.princemaker.type.PrinceLevel.JUNIOR_PRINCE
 import com.makers.princemaker.type.PrinceLevel.MIDDLE_PRINCE
 import com.makers.princemaker.type.SkillType
 import com.makers.princemaker.type.SkillType.INTELLECTUAL
@@ -43,11 +47,13 @@ internal class PrinceMakerServiceTest {
     @Test
     fun princeTest() {
             //given
-            val juniorPrince =
-                PrinceMock.createPrince(
-                    PrinceLevel.JUNIOR_PRINCE, INTELLECTUAL,
-                    PrinceMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS, "princeId"
-                )
+            val juniorPrince = dummyPrince(princeLevel = JUNIOR_PRINCE,
+                skillType = INTELLECTUAL,
+                experienceYears = MAX_JUNIOR_EXPERIENCE_YEARS)
+//                PrinceMock.createPrince(
+//                    PrinceLevel.JUNIOR_PRINCE, INTELLECTUAL,
+//                    PrinceMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS, "princeId"
+//                )
             every {
                 princeRepository.findByPrinceId(any())
             } returns Optional.of(juniorPrince)
@@ -59,7 +65,7 @@ internal class PrinceMakerServiceTest {
             assertEquals(PrinceLevel.JUNIOR_PRINCE, prince.princeLevel)
             assertEquals(INTELLECTUAL, prince.skillType)
             assertEquals(
-                PrinceMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS,
+                MAX_JUNIOR_EXPERIENCE_YEARS,
                 prince.experienceYears
             )
         }

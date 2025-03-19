@@ -5,6 +5,7 @@ import com.makers.princemaker.code.StatusCode
 import com.makers.princemaker.constant.PrinceMakerConstant
 import com.makers.princemaker.constant.PrinceMakerConstant.MAX_JUNIOR_EXPERIENCE_YEARS
 import com.makers.princemaker.controller.CreatePrince
+import com.makers.princemaker.dto.dummyCreatePrinceRequest
 
 import com.makers.princemaker.entity.Prince
 import com.makers.princemaker.entity.PrinceMock
@@ -73,14 +74,24 @@ internal class PrinceMakerServiceTest {
     @Test
     fun createPrinceTest_success() {
         //given
-        val request = CreatePrince.Request(
-            MIDDLE_PRINCE,
-            INTELLECTUAL,
-            7,
-            "p;rinceId",
-            "name",
-            28
-        )
+//        val request = CreatePrince.Request(
+//            MIDDLE_PRINCE,
+//            INTELLECTUAL,
+//            7,
+//            "p;rinceId",
+//            "name",
+//            28
+//        )
+
+
+        // Cpoy -> data class 의 내장 기증 -> 기본값을 복사하되 인자값을 변경가능.
+        val request = dummyCreatePrinceRequest().copy(
+            princeLevel = MIDDLE_PRINCE,
+            skillType = INTELLECTUAL,
+            experienceYears = 7,
+
+        );
+
         val slot = slot<Prince>()
         every { princeRepository.save(any() ) } returns Prince(
             id = null,

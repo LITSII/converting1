@@ -26,7 +26,7 @@ class CreatePrinceController (
 }
 
 
-
+// 데이터 클래스의 변경
 class CreatePrince {
     data class Request(
         @field:NotNull

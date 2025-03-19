@@ -50,8 +50,7 @@ class PrinceMakerService
     }
 
     private fun validateCreatePrinceRequest(request: CreatePrince.Request) {
-        princeRepository!!.findByPrinceId(request.princeId)
-            .ifPresent { prince: Prince? ->
+        princeRepository!!.findByPrinceId(request.princeId!!)?.let{
                 throw PrinceMakerException(PrinceMakerErrorCode.DUPLICATED_PRINCE_ID)
             }
 
@@ -77,23 +76,22 @@ class PrinceMakerService
 
     @get:Transactional
     val allPrince: List<PrinceDto>
-        get() = princeRepository!!.findByStatusEquals(StatusCode.HEALTHY)
-            .stream().map { prince: Prince? -> PrinceDto.fromEntity(prince) }
-            .collect(Collectors.toList())
+        get() = princeRepository.findByStatusEquals(StatusCode.HEALTHY)
+            .map {PrinceDto.fromEntity(it) }
 
     @Transactional
-    fun getPrince(princeId: String?): PrinceDetailDto {
+    fun getPrince(princeId: String): PrinceDetailDto {
         return princeRepository.findByPrinceId(princeId)
-            .map { prince: Prince? -> PrinceDetailDto.fromEntity(prince) }
-            .orElseThrow { PrinceMakerException(PrinceMakerErrorCode.NO_SUCH_PRINCE) }
+            ?.let { prince: Prince -> PrinceDetailDto.fromEntity(prince) }
+            ?: throw PrinceMakerException(PrinceMakerErrorCode.NO_SUCH_PRINCE)
     }
 
     @Transactional
     fun editPrince(
-        princeId: String?, request: EditPrince.Request
+        princeId: String, request: EditPrince.Request
     ): PrinceDetailDto {
         val prince = princeRepository.findByPrinceId(princeId)
-            .orElseThrow { PrinceMakerException(PrinceMakerErrorCode.NO_SUCH_PRINCE) }
+            ?: throw PrinceMakerException(PrinceMakerErrorCode.NO_SUCH_PRINCE)
         prince.princeLevel = request.princeLevel
         prince.skillType = request.skillType
         prince.experienceYears = request.experienceYears
@@ -105,10 +103,10 @@ class PrinceMakerService
 
     @Transactional
     fun woundPrince(
-        princeId: String?
+        princeId: String
     ): PrinceDetailDto {
         val prince = princeRepository.findByPrinceId(princeId)
-            .orElseThrow { PrinceMakerException(PrinceMakerErrorCode.NO_SUCH_PRINCE) }
+            ?: throw PrinceMakerException(PrinceMakerErrorCode.NO_SUCH_PRINCE)
 
         prince.status = StatusCode.WOUNDED
 

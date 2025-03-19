@@ -32,7 +32,7 @@ class PrinceMakerController
 
     @PutMapping("/prince/{princeId}")
     fun updatePrince(
-        @PathVariable princeId: String?,
+        @PathVariable princeId: String,
         @RequestBody  @Valid request: EditPrince.Request
     ): PrinceDetailDto {
         return princeMakerService.editPrince(princeId, request)
